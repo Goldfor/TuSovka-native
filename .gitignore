@@ -8,6 +8,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+credentials.js
 
 # macOS
 .DS_Store
