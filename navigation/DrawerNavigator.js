@@ -1,22 +1,20 @@
 import { createDrawerNavigator  } from '@react-navigation/drawer';
 import React from 'react';
 import { Platform, Text, View, TouchableOpacity  } from 'react-native';
+import StackNavigator from './StackNavigator'
 import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
 
-import { TabBarIonicons, TabBarMaterCommIcons } from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
 
 const Drawer = createDrawerNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+const INITIAL_ROUTE_NAME = 'Home1';
 
 function CustomDrawerContent(props) {
   return (
     <DrawerContentScrollView {...props}>
-      <TouchableOpacity  onPress={() => {props.navigation.navigate("Links")}}><Text>Hello</Text></TouchableOpacity >
     </DrawerContentScrollView>
   );
 }
@@ -27,8 +25,8 @@ export default function DrawerNavigator({ navigation, route }) {
   return (
   <Drawer.Navigator initialRouteName={INITIAL_ROUTE_NAME} drawerContent={() => <CustomDrawerContent navigation={navigation}/>}>
       <Drawer.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Home1"
+        component={StackNavigator}
       />
     </Drawer.Navigator>
   );

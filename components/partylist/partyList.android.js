@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Platform, StyleSheet, View, ScrollView, RefreshControl, SafeAreaView } from 'react-native';
 import { withTheme } from 'react-native-paper';
 import Party from './party';
-import List1 from './List'
 
 const styles = StyleSheet.create({
     container: {
@@ -69,11 +68,12 @@ class PartyList extends Component {
                                 this._onRefreshStart();
                                 onRefresh(this._onRefreshStop);
                             }}
-                            colors={['#000000']}
+                            colors={[colors.primary]}
+                            progressBackgroundColor={colors.surface}
                         />
                     }
                 >
-                    <Party List={List}/>
+                    <Party/>
                 </ScrollView>
             </SafeAreaView>
         );

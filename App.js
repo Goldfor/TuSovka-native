@@ -6,7 +6,7 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import useCachedResources from './hooks/useCachedResources';
 import DrawerNavigator from './navigation/DrawerNavigator';
 import LinkingConfiguration from './navigation/LinkingConfiguration';
-import { Provider as PaperProvider, DarkTheme } from 'react-native-paper';
+import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import { Provider as ReduxProvider} from 'react-redux';
 import store from './store'
 
@@ -22,7 +22,7 @@ export default function App(props) {
 	else {
     	return (
       	<ReduxProvider store={store}>
-      	  	<PaperProvider theme={DarkTheme}>
+      	  	<PaperProvider theme={DefaultTheme}>
       	  	  	<NavigationContainer linking={LinkingConfiguration}>
       	  	    	<Stack.Navigator>
       	  	     		<Stack.Screen name="Root" component={DrawerNavigator} />

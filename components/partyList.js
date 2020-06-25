@@ -3,7 +3,6 @@ import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, RefreshContr
 
 import { updateTask } from '../actions/updateList'
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
 
 import Partys from './partylist/partyList'
 
