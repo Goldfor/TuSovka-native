@@ -3,6 +3,8 @@ import { Platform, StyleSheet, View, ScrollView, RefreshControl, SafeAreaView } 
 import { withTheme } from 'react-native-paper';
 import Party from './party';
 
+import { connect } from 'react-redux';
+
 const styles = StyleSheet.create({
     container: {
         marginVertical: '3%',
@@ -55,12 +57,13 @@ class PartyList extends Component {
 
     render() {
         var { refreshing } = this.state;
-        var { List, onRefresh } = this.props;
+        var { List, onRefresh, userInterface } = this.props;
         const { colors } = this.props.theme;
         return (
             <SafeAreaView>
                 <ScrollView
-                    style={{ backgroundColor: colors.surface  }}
+                    scrollEnabled={userInterface.partyKey === undefined || userInterface.partyKey === '0'}
+                    style={{ backgroundColor: colors.background  }}
                     refreshControl={
                         <RefreshControl
                             refreshing={refreshing}
@@ -81,4 +84,7 @@ class PartyList extends Component {
 }
   
 
-export default withTheme(PartyList);
+export default withTheme(
+    connect(state => ({
+        userInterface: state.userInterface,
+    }), { } )(PartyList));

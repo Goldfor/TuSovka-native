@@ -1,15 +1,21 @@
 import React, { Component, useState, useEffect } from 'react'
-import { Animated, Platform, StyleSheet, View } from 'react-native';
+import { Animated, Platform, StyleSheet, View, Easing } from 'react-native';
 import { List, Card, Title, Paragraph } from 'react-native-paper';
+
 import { dayOptions, hourOptions } from '../../util/time';
+
 import { IP } from '../../credentials'
 import { useNavigation  } from '@react-navigation/native';
+
+import { Dimensions, PixelRatio } from 'react-native';
 
 import { connect } from 'react-redux';
 import { updateScroll, updateDraw, updatePartyKey } from '../../actions/updateInterface'
 
-const openDuration = 300;
-const closeDuration = 1000;
+
+const openDuration = 500;
+const closeDuration = 500;
+
 
 const styles = StyleSheet.create({
     container: {
@@ -41,12 +47,13 @@ function Party(props){
     const [ paddingBottom, setPaddingBottom ] = useState(List.map((item) => 
         new Animated.Value(0)
     ));
+    var refs = []
+    var refs2 = []
 
     const navigation = useNavigation();
 
     React.useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
-            console.log("focus")
             setFocus(true)
         });
     
@@ -68,24 +75,26 @@ function Party(props){
     }
     const startAminated = (e, id, i) => {
         updateDraw(false);
-        const { locationY, pageY } = e.nativeEvent;
-        let LastY = pageY - locationY - 90
-        let _h = 400;
-        //console.log("LastY", LastY, _h)
-        props.updateScroll(id, LastY, _h);
-        openParty(id, () => {
-                Animated.parallel([
-                    Animated.timing(paddingBottom[i], {
-                    toValue: _h,
-                    duration: openDuration,
-                }),
-                Animated.timing(top, {
-                    toValue: -LastY,
-                    duration: openDuration,
-                }),
-            ]).start((e) => {
-                goToParty(e, id);
-            });
+        let _h = Dimensions.get('window').height - ( refs[i].height + 80);
+        refs2[i].measure((fx, fy, width, height, px, py) => {
+            let LastY = py - 80;
+            props.updateScroll(id, LastY, _h);
+            openParty(id, () => {
+                    Animated.parallel([
+                        Animated.timing(paddingBottom[i], {
+                        toValue: _h,
+                        duration: openDuration,
+                        easing: Easing.linear
+                    }),
+                    Animated.timing(top, {
+                        toValue: -LastY,
+                        duration: openDuration,
+                        easing: Easing.linear
+                    }),
+                ]).start((e) => {
+                    goToParty(e, id);
+                });
+            })
         })
     }
 
@@ -96,8 +105,12 @@ function Party(props){
 
 
         return(
+            <View key={`PartyList${party._id}`}
+                onLayout={comp => {refs[i] = comp.nativeEvent.layout}}
+                ref={(_ref) => {refs2[i]= _ref}}
+            >
             <Card
-                key={`PartyList${party._id}`}
+                
                 style={{..._style}}
                 onPress={(e) => startAminated(e, party._id, i)}
             >
@@ -115,32 +128,39 @@ function Party(props){
                 <Paragraph >Регестрации: {new Date(party.stopVerify).toLocaleTimeString("ru", hourOptions).split(',')[0]}</Paragraph > */}
                 </Card.Content>
             </Card>
+            </View>
         )
     };
 
     function Render () {
         if(paddingBottom.length !== List.length){
-            console.log(List)
+            //console.log(List)
             setPaddingBottom(List.map((item) => new Animated.Value(0)));
+            refs = (List.map((item) => ({height: 0})));
+            refs2 = (List.map((item) => ({})));
+
         }
 
         if(focus === true){
             setFocus(false)
             List.forEach((party, i) => {
-                console.log(props.userInterface.partyKey, party._id)
+                // console.log(props.userInterface.partyKey, party._id)
                 if(props.userInterface.partyKey === party._id){
                     Animated.parallel([
                         Animated.timing(paddingBottom[i], {
                             toValue: 0,
                             duration: closeDuration,
+                            easing: Easing.out(Easing.linear)
                         }),
                         Animated.timing(top, {
                             toValue: 0,
                             duration: closeDuration,
+                            easing: Easing.out(Easing.linear)
                         }),
                     ]).start((e) => {
                             setOpeningParty('0');
                             updateDraw(false);
+                            props.updateScroll('0', 0, 0);
                     });
                 }
             });

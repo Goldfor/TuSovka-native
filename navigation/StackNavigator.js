@@ -19,12 +19,6 @@ export default function MyStack() {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{
-            transitionSpec: {
-              open: config,
-              close: config,
-            },
-          }}
         />
         <Stack.Screen
           name="Party"

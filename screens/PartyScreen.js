@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, RefreshControl} from 'react-native';
 import { useTheme } from 'react-native-paper';
-import { List, Card, Title, Paragraph } from 'react-native-paper';
 import { IP } from '../credentials'
 
 import { connect } from 'react-redux';
-import { updateDraw } from '../actions/updateInterface'
+import OneParty from '../components/oneParty'
+
+import { withTheme } from 'react-native-paper';
 
 
 const styles = StyleSheet.create({
@@ -40,27 +41,11 @@ class PartyScreen extends Component {
 
 
   render(){
+    const { colors } = this.props.theme;
     return (
-      <View style={styles.container}>
-      <Card style={styles.container}
-                key={`PartyList${1}`}
-                style={{paddingBottom: 400}}
-            >
-                <Card.Cover 
-                    source={{ uri: `${IP}/images/get/pict/${2}.jpg`}}
-                    style={styles.img}
-                />
-                <Card.Content>
-                <Title>Лох</Title>
-                <Paragraph >Лох</Paragraph >
-                <Paragraph >День: лох</Paragraph >
-                
-                {/* <Paragraph >Время начала: {new Date(party.timeStart).toLocaleTimeString("ru", hourOptions).split(',')[0]}</Paragraph >
-                <Paragraph >Конец: {new Date(party.stopVerify).toLocaleDateString("ru", dayOptions)}</Paragraph >
-                <Paragraph >Регестрации: {new Date(party.stopVerify).toLocaleTimeString("ru", hourOptions).split(',')[0]}</Paragraph > */}
-                </Card.Content>
-            </Card>
-            </View>
+      <View>
+        <OneParty />
+      </View>
     );
   }
 }
@@ -70,6 +55,6 @@ class PartyScreen extends Component {
 // };
 
 
-export default connect(state => ({
-  userInterface: state.userInterface,
-}), { updateDraw } )(PartyScreen)
+export default withTheme(connect(state => ({
+  ...state
+}), {  } )(PartyScreen))
