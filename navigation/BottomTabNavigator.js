@@ -2,33 +2,32 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
 import { TabBarIonicons, TabBarMaterCommIcons } from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import HomeScreen from './MainStackNavigator';
+import Empty1 from '../screens/EmptyPage';
 
 const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+
 
 export default function BottomTabNavigator({ navigation, route }) {
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
-  navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    <BottomTab.Navigator>
       <BottomTab.Screen
-        name="Home"
+        name="Main"
         component={HomeScreen}
         options={{
-          title: 'Get Started',
+          title: 'Главная',
           tabBarIcon: ({ focused }) => <TabBarMaterCommIcons focused={focused} name="view-list" />,
         }}
       />
       <BottomTab.Screen
         name="Links"
-        component={LinksScreen}
+        component={Empty1}
         options={{
-          title: 'Resources',
+          title: 'Навигация',
           tabBarIcon: ({ focused }) => <TabBarIonicons focused={focused} name="md-book" />,
         }}
       />
@@ -36,13 +35,3 @@ export default function BottomTabNavigator({ navigation, route }) {
   );
 }
 
-function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
-
-  switch (routeName) {
-    case 'Home':
-      return 'How to get started';
-    case 'Links':
-      return 'Links to learn more';
-  }
-}

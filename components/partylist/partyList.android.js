@@ -43,9 +43,7 @@ class PartyList extends Component {
     _onRefreshStart = () => {
         this.setState({refreshing: true });
         wait(2000).then(() => {
-            var { List } = this.state;
             this.setState({
-                List,
                 refreshing: false
             });
         });
@@ -57,12 +55,12 @@ class PartyList extends Component {
 
     render() {
         var { refreshing } = this.state;
-        var { List, onRefresh, userInterface } = this.props;
+        var { List, onRefresh, Key, children } = this.props;
+        var _List = List[Key];
         const { colors } = this.props.theme;
         return (
             <SafeAreaView>
                 <ScrollView
-                    scrollEnabled={userInterface.partyKey === undefined || userInterface.partyKey === '0'}
                     style={{ backgroundColor: colors.background  }}
                     refreshControl={
                         <RefreshControl
@@ -76,7 +74,8 @@ class PartyList extends Component {
                         />
                     }
                 >
-                    <Party/>
+                    {children}
+                    <Party List={_List} Key={Key}/>
                 </ScrollView>
             </SafeAreaView>
         );
@@ -87,4 +86,5 @@ class PartyList extends Component {
 export default withTheme(
     connect(state => ({
         userInterface: state.userInterface,
+        partyList: state.partyList,
     }), { } )(PartyList));

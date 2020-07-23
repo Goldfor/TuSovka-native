@@ -11,6 +11,7 @@ export default {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
+  iconColor: '#000'
 };
 
 const darkTheme = {

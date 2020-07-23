@@ -1,16 +1,14 @@
 import { ADD_LIST, UPDATE_LIST } from '../constants/Redux';
 
-const party = (state = [], { type, ListParty }) => {
+const party = (state = {}, { type, ListParty, key }) => {
+  let _state = {...state};
   switch (type) {
     case ADD_LIST :
-      return [
-        ...state, 
-        ...ListParty
-      ];
+      _state[key] = [...state[key], ...ListParty];
+      return _state;
     case UPDATE_LIST :
-        return [ 
-          ...ListParty
-        ];
+      _state[key] = ListParty;
+      return _state;
     default:
       return state;
   }

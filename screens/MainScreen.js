@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View, RefreshControl} from 'react-native';
 import { useTheme } from 'react-native-paper';
-import Partys from '../components/partyList'
-
+import Partys from '../components/mainPartyList'
+import { TabBarIonicons, TabBarMaterCommIcons } from '../components/TabBarIcon';
 
 
 class HomeScreen extends Component {
@@ -21,8 +21,5 @@ class HomeScreen extends Component {
   }
 }
 
-HomeScreen.navigationOptions = {
-  header: null,
-};
-
 export default HomeScreen
+
