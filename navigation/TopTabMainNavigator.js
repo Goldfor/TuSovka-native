@@ -51,7 +51,7 @@ function MyTabBar(props) {
     return (
         <View style={{ height: 70, backgroundColor: theme.colors.surface,  flexDirection: 'row' }}>
             <View style={{width: 50, backgroundColor: 'powderblue'}} />
-            <View style={{ flexDirection: 'row', flex:1}}>
+            <View style={{ flexDirection: 'row', flex:1, marginBottom: 5}}>
                 {state.routes.map((route, index) => {
                     const { options } = descriptors[route.key];
                     const label =
@@ -106,8 +106,8 @@ function MyTabBar(props) {
                 })}
             </View>
             <View style={{width: 50, flexDirection: 'row', alignItems: 'flex-end', backgroundColor: 'powderblue'}}>
-            <MaterialButton
-                            onPress={(path, update) => {
+                <MaterialButton
+                    onPress={(path, update) => {
                                 update(`${path}$SearchList`, true)
                                 navigation.navigate(`${path}$Search`)}}
                             style={{
