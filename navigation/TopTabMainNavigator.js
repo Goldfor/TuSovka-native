@@ -1,4 +1,4 @@
-import { createMaterialTopTabNavigator, MaterialTopTabBar, MaterialTopTabBarOptions } from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
 
 import { View, TouchableOpacity } from 'react-native';
