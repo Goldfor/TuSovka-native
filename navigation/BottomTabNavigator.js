@@ -1,9 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
-import { TabBarIonicons, TabBarMaterCommIcons } from '../components/TabBarIcon';
+import { TabBarIonicons, TabBarMaterCommIcons, Icons } from '../components/TabBarIcon';
 import HomeScreen from './MainStackNavigator';
 import Empty1 from '../screens/EmptyPage';
+import HomeIcon from '../assets/icons/home.svg'
 
 const BottomTab = createBottomTabNavigator();
 
@@ -14,20 +15,21 @@ export default function BottomTabNavigator({ navigation, route }) {
   // https://reactnavigation.org/docs/en/screen-options-resolution.html
 
   return (
-    <BottomTab.Navigator>
+    <BottomTab.Navigator
+    tabBarOptions={{
+      showLabel: false
+    }}>
       <BottomTab.Screen
         name="Main"
         component={HomeScreen}
         options={{
-          title: 'Главная',
-          tabBarIcon: ({ focused }) => <TabBarMaterCommIcons focused={focused} name="view-list" />,
+          tabBarIcon: ({ focused }) => <Icons focused={focused} Icon={HomeIcon} />,
         }}
       />
       <BottomTab.Screen
         name="Links"
         component={Empty1}
         options={{
-          title: 'Навигация',
           tabBarIcon: ({ focused }) => <TabBarIonicons focused={focused} name="md-book" />,
         }}
       />

@@ -12,3 +12,7 @@ credentials.js
 
 # macOS
 .DS_Store
+
+.idea/
+
+android/
