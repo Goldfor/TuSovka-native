@@ -1,13 +1,14 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "start": "react-native start --reset-cache",
+    "start1": "react-native start --reset-cache",
+    "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --watchAll",
-    "android1": "react-native run-android"
+    "build_andriod": "expo build:android -t apk"
   },
   "jest": {
     "preset": "jest-expo"

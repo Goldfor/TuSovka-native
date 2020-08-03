@@ -27,6 +27,10 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "android": {
+      "package": "com.soon.Tusovka",
+      "versionCode": 1
     }
   }
 }
